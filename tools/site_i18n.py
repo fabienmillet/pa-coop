@@ -151,6 +151,7 @@ INDEX = [
     ('<span>Docker image</span>', '<span>image Docker</span>'),
     ('Released. Report problems on <a', 'Publié. Signalez les problèmes sur <a'),
     # --- footer
+    ('Download for Windows <span>· Steam or Epic</span></a>', 'Télécharger pour Windows <span>· Steam ou Epic</span></a>'),
     ('Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game.',
      'Projet open source indépendant (MIT), sans lien avec Paradox Interactive, Double Eleven, Introversion ou Exit Games. Prison Architect est une marque de Paradox Interactive ; captures prises dans le jeu.'),
     ('<a href="/legal">Legal notice and privacy</a>', '<a href="/fr/legal">Mentions légales et confidentialité</a>'),
