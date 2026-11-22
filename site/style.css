@@ -232,3 +232,52 @@ footer { background: #16181c; color: #8b929b; padding: 32px 0; }
 .lang-switch a { color: #f2ecdf; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1.5px solid rgba(242,236,223,.35); }
 .lang-switch a[aria-current] { background: var(--folder); color: var(--ink); border-color: var(--folder); }
 .lang-switch a:hover { border-color: #f2ecdf; }
+
+/* ---------- Mobile pass ---------- */
+@media (max-width: 900px) {
+  .desk { padding: 40px 0; }
+  .cork { padding: 36px 0 44px; border-block-width: 12px; }
+  .blueprint { padding: 40px 0 48px; }
+  .cork h2, .blueprint h2, #faq h2 { font-size: 34px; margin-bottom: 20px; }
+  .plan-no { margin-bottom: 24px; }
+  /* hero */
+  .sheet-left { gap: 16px; }
+  .sheet-left h1 { font-size: 54px; }
+  .sheet-right { padding: 28px 20px; grid-template-columns: 1fr 1fr; align-items: start; justify-items: stretch; gap: 18px 14px; }
+  .p-13 { width: auto; max-width: 280px; grid-column: 1; }
+  .s-13 { grid-column: 2; align-self: center; font-size: 16px; }
+  .p-two { grid-column: 1 / -1; }
+  .polaroid { padding: 8px 8px 0; }
+  .polaroid figcaption { font-size: 15px; padding: 10px 2px 12px; }
+  .clip { left: 44px; }
+  /* letter */
+  .letter { padding: 26px 20px; }
+  .typed { font-size: 14px; line-height: 23px; gap: 18px; }
+  .signature { font-size: 28px; margin-top: 16px; }
+  .sticky { font-size: 19px; padding: 20px; width: min(260px, 100%); }
+  /* corkboard: two columns of smaller photos */
+  .board { grid-template-columns: 1fr 1fr; gap: 26px 16px; }
+  .board .tall img { aspect-ratio: auto; }
+  .index-card { font-size: 15px; padding: 14px; }
+  /* install / server / release */
+  pre { font-size: 12.5px; line-height: 19px; padding: 10px 12px; }
+  .steps { gap: 18px; }
+  .clipboard-sheet h2 { font-size: 34px; }
+  .work-order h2 { font-size: 18px; }
+  .wo-cols { gap: 24px; }
+  .wo-sign { position: static; margin: 22px 20px 0 auto; padding-top: 6px; }
+  .wo-sign span { position: static; display: block; font-size: 30px; line-height: 1; margin-bottom: 2px; }
+  .release li a { display: grid; grid-template-columns: 9px 1fr; column-gap: 10px; align-items: baseline; }
+  .release li a::before { margin-top: 6px; }
+  .release b { font-size: 14px; overflow-wrap: anywhere; }
+  .release span { padding-left: 0; grid-column: 2; font-size: 14px; }
+  .incidents { gap: 26px; }
+  .incidents article { padding: 18px 18px 22px; }
+  .incidents h3 { font-size: 17px; }
+  .doc h1 { font-size: 28px; }
+}
+@media (max-width: 380px) {
+  .board { grid-template-columns: 1fr; }
+  .sheet-right { grid-template-columns: 1fr; }
+  .s-13 { grid-column: 1; }
+}
