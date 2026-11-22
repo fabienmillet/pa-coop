@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pa-coop · co-op for Prison Architect on your own server</title>
+<meta name="description" content="pa-coop runs Prison Architect's online co-op on your own server: more than 4 players, Steam and Epic in the same game, host from the game or a dedicated server.">
+<meta property="og:title" content="pa-coop · co-op for Prison Architect on your own server">
+<meta property="og:description" content="More than 4 players, Steam and Epic in the same game, host from the game or a dedicated server.">
+<meta property="og:image" content="/img/social.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='14' width='52' height='42' rx='6' fill='%23f2b632'/%3E%3Crect x='6' y='8' width='22' height='10' rx='3' fill='%23f2b632'/%3E%3Crect x='14' y='22' width='36' height='28' fill='%23fbf9f2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ Folder ============ -->
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="folder">
+    <div class="folder-tab" aria-hidden="true"></div>
+    <div class="folder-body">
+      <section class="sheet sheet-left ruled">
+        <h1 class="marker">pa-coop</h1>
+        <div class="dash-rule" aria-hidden="true"></div>
+        <p class="intro">Co-op for Prison Architect on your own server. Room for more than 4 players, Steam and Epic in the same game.</p>
+        <nav class="menu" aria-label="Main">
+          <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat"><b>Download for Windows</b><i></i><span>install-pa-coop.bat</span></a>
+          <a href="#install"><b>Linux</b><i></i><span>install.sh</span></a>
+          <a href="#server"><b>Run a server</b><i></i><span>Docker, Pterodactyl</span></a>
+          <a href="https://github.com/fabienmillet/prison-architect-server"><b>Source code</b><i></i><span>GitHub</span></a>
+        </nav>
+        <p class="ver">ver: pa-coop 0.1.0 · MIT · works with The_Jailhouse_1.02 (r11056)</p>
+      </section>
+      <section class="sheet sheet-right ruled" aria-label="Screenshots">
+        <div class="clip" aria-hidden="true"></div>
+        <figure class="polaroid p-13">
+          <img src="img/coop-13.webp" width="300" height="300" alt="In-game player list showing 13 players in one prison">
+          <figcaption>13 players, one prison</figcaption>
+        </figure>
+        <p class="scribble s-13">the game stops at 4. eleven of these are our test bots.</p>
+        <figure class="polaroid p-two">
+          <img src="img/coop-two.webp" width="1280" height="400" alt="The same prison on two computers side by side">
+          <figcaption>Same prison, two PCs</figcaption>
+        </figure>
+      </section>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ Letter ============ -->
+<section class="desk">
+  <div class="wrap letter-row">
+    <article class="letter">
+      <p class="letterhead">Office of the Warden</p>
+      <div class="typed">
+        <p>To whoever runs this prison with friends,</p>
+        <p>The online mode works, until it doesn't. Four players at most. Big prisons drift out of sync, and when the game notices, it shows an error and throws the player out. The servers it talks to belong to someone else, and the multiplayer hasn't been touched since 2023.</p>
+        <p>pa-coop puts the server in your hands. It speaks the same language as the official one, so the game doesn't know the difference. The mod next to the game takes care of the rest: more players, and when the game reports a desync, the mod asks the host to resend the prison instead of dropping the player. It won't catch every case, but it is better than a kick.</p>
+        <p>Your saves and the game files stay as they are.</p>
+      </div>
+      <p class="signature marker">The Warden</p>
+    </article>
+    <aside class="sticky marker">Tested on Ironfort: 380 prisoners, speed 4, two players building at once.<br><br>No desync in that run. Yours may vary.</aside>
+  </div>
+</section>
+
+<!-- ============ Corkboard ============ -->
+<section class="cork">
+  <div class="wrap">
+    <h2 class="marker light">From the cameras</h2>
+    <div class="board">
+      <figure class="polaroid pin red"><img src="img/canteen.webp" alt="The canteen at lunch, packed with prisoners" loading="lazy" width="1060" height="640"><figcaption>Lunch, 393 inmates. Same on every screen.</figcaption></figure>
+      <figure class="polaroid pin blue"><img src="img/overview.webp" alt="Ironfort seen from above" loading="lazy" width="1090" height="640"><figcaption>Ironfort from above</figcaption></figure>
+      <figure class="polaroid pin green tall"><img src="img/block.webp" alt="A cell block" loading="lazy" width="1060" height="620"><figcaption>Cell block B</figcaption></figure>
+      <figure class="polaroid pin yellow"><img src="img/yard2.webp" alt="Free time in the yard" loading="lazy" width="1100" height="560"><figcaption>Free time in the yard</figcaption></figure>
+      <figure class="polaroid pin red"><img src="img/cells.webp" alt="Cells, shower block and morgue" loading="lazy" width="770" height="680"><figcaption>Host on Epic, friend on Steam</figcaption></figure>
+      <p class="index-card marker pin blue">All shots taken in the real game, during a co-op session through a pa-coop server.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Blueprint ============ -->
+<section class="blueprint" id="how">
+  <div class="wrap">
+    <h2 class="marker light">How it works</h2>
+    <p class="plan-no">Plan no. 1 · scale: not to scale</p>
+    <div class="plan">
+      <div class="bp-box bp-host"><h3>Your game (host)</h3><p>Prison Architect<br>+ the pa-coop mod<br>runs the simulation</p></div>
+      <div class="bp-box bp-server"><h3>pa-coop server</h3><p>replaces Photon's cloud<br>one TCP port (4533)<br>lobby, game list,<br>message relay<br>up to 16 per game</p></div>
+      <div class="bp-box bp-steam"><h3>Friend on Steam</h3><p>same game, same mod<br>sees what you see</p></div>
+      <div class="bp-box bp-epic"><h3>Friend on Epic</h3><p>Windows or Linux,<br>it does not matter</p></div>
+      <svg class="wires" viewBox="0 0 1160 420" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M320 90 L420 150 M320 330 L420 270 M740 210 L840 330"/>
+      </svg>
+      <p class="bp-note n1 marker">one port to open</p>
+      <p class="bp-note n2 marker">the mod points the game at your server instead of the official one</p>
+      <p class="bp-note n3 marker">desync reported? the mod asks the host to resend the prison</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Install ============ -->
+<section class="desk" id="install">
+  <div class="wrap install-row">
+    <div class="clipboard">
+      <div class="clipboard-clip" aria-hidden="true"></div>
+      <div class="clipboard-sheet ruled">
+        <h2 class="marker">Install</h2>
+        <ol class="steps">
+          <li><h3>Windows (Steam or Epic)</h3><p>Download <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat">install-pa-coop.bat</a> from the latest release and double-click it. It finds the game, copies three files next to it and asks one question: host or join.</p></li>
+          <li><h3>Host</h3><p>Pick "Host a game". Load a prison, then Menu &gt; Go Online. The game starts the server for you and the router opens port 4533 (UPnP). The installer shows the address to give your friends.</p></li>
+          <li><h3>Join</h3><p>Pick "Join a friend" and type their address. In the game: Join Online Game, their prison is in the list.</p></li>
+          <li><h3>Linux (Steam)</h3><p>Same thing from a terminal, then add the launch option it prints:</p>
+            <pre><code>curl -fsSL https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.sh | bash</code></pre></li>
+        </ol>
+        <p class="scribble">Router won't open the port? A VPN between friends (Tailscale, ZeroTier, NetBird) works too.</p>
+      </div>
+    </div>
+    <aside class="card cfg">
+      <h3>pacoop.txt</h3>
+      <p>The only setting, next to the game:</p>
+<pre><code><span class="c"># host</span>
+server=local
+
+<span class="c"># join a friend</span>
+server=203.0.113.5
+
+<span class="c"># or pick in the game's</span>
+<span class="c"># Region menu</span>
+servers=Us=pa.example.org, Local=local</code></pre>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ Server ============ -->
+<section class="desk alt" id="server">
+  <div class="wrap">
+    <article class="work-order">
+      <header><h2>Work order — dedicated server</h2><span>No. 0001</span></header>
+      <p class="wo-intro">Keep the prison online even when the host is asleep. One small program, one TCP port. Players set <code>server=&lt;your address&gt;</code>.</p>
+      <div class="wo-cols">
+        <div><h3>Docker</h3><p>Image on GitHub Container Registry, amd64 and arm64, 6 MB.</p>
+<pre><code>docker run -d --name pa-coop \
+  -p 4533:4533 \
+  -e PACOOP_MAX_PLAYERS=16 \
+  ghcr.io/fabienmillet/prison-architect-server</code></pre></div>
+        <div><h3>Plain binary</h3><p>Linux (amd64, arm64) or Windows, from the <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest">release page</a>.</p>
+<pre><code>./pacoop-server
+./pacoop-server -port 14533 -max-players 24
+./pacoop-server -h</code></pre></div>
+        <div><h3>Pterodactyl / Pelican</h3><p>Import the egg, create a server with one port allocation, start. Reinstall to update.</p>
+<pre><code><a href="https://github.com/fabienmillet/prison-architect-server/blob/master/deploy/pterodactyl/egg-pa-coop.json">deploy/pterodactyl/egg-pa-coop.json</a>
+<a href="https://github.com/fabienmillet/prison-architect-server/blob/master/deploy/pelican/egg-pa-coop.json">deploy/pelican/egg-pa-coop.json</a></code></pre></div>
+      </div>
+      <p class="wo-opts">Options: PACOOP_PORT · PACOOP_MAX_PLAYERS · PACOOP_UPNP · PACOOP_PUBLIC · PACOOP_VERBOSE</p>
+      <div class="wo-sign"><span class="marker">W.</span><small>Approved by: the Warden</small></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="desk" id="faq">
+  <div class="wrap">
+    <h2 class="marker light">Incident reports</h2>
+    <p class="sub">Questions people ask, filed and answered.</p>
+    <div class="incidents">
+      <article><small>Incident #0041</small><h3>Do my friends need the mod?</h3><p>Yes. Every player installs it, it is what sends the game to your server. It is one double-click.</p></article>
+      <article><small>Incident #0042</small><h3>Can I still play on the official servers?</h3><p>Run the installer again and pick "Back to official multiplayer", or delete the three files.</p></article>
+      <article><small>Incident #0043</small><h3>Does it touch my saves or the game?</h3><p>No. It sits next to the game and only redirects online play. Saves and game files stay as they are.</p></article>
+      <article><small>Incident #0044</small><h3>Do I need my own copy of the game?</h3><p>Yes. pa-coop ships nothing from the game. Steam or Epic, every player needs a copy.</p></article>
+      <article><small>Incident #0045</small><h3>What if a friend desyncs?</h3><p>If the game detects it, the mod asks the host to resend the prison so the player can stay. A safety net, not a guarantee: some desyncs can still end the session.</p></article>
+      <article><small>Incident #0046</small><h3>Mods and the game's DLC?</h3><p>Same rules as the official co-op: the game disables mods online, and players should own the same DLC.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Release ============ -->
+<section class="desk dark" id="download">
+  <div class="wrap">
+    <article class="release">
+      <h2>Release form</h2>
+      <p class="rel-meta">pa-coop 0.1.0 · MIT licence · <a href="https://github.com/fabienmillet/prison-architect-server">github.com/fabienmillet/prison-architect-server</a></p>
+      <ul>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat"><b>install-pa-coop.bat</b><i></i><span>Windows installer, start here</span></a></li>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pa-coop-windows.zip"><b>pa-coop-windows.zip</b><i></i><span>the mod and server, to copy by hand</span></a></li>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pa-coop-linux.tar.gz"><b>pa-coop-linux.tar.gz</b><i></i><span>Linux (Steam, native version)</span></a></li>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest"><b>pacoop-server-linux-amd64 / arm64</b><i></i><span>dedicated server</span></a></li>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pacoop-server-windows-amd64.exe"><b>pacoop-server-windows-amd64.exe</b><i></i><span>dedicated server on Windows</span></a></li>
+        <li><a href="https://github.com/fabienmillet/prison-architect-server/pkgs/container/prison-architect-server"><b>ghcr.io/…/prison-architect-server</b><i></i><span>Docker image</span></a></li>
+      </ul>
+      <p class="marker blue-ink">Released. Report problems on <a href="https://github.com/fabienmillet/prison-architect-server/issues">GitHub</a>.</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="marker">pa-coop</span>
+    <p>Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game.</p>
+  </div>
+</footer>
+</body>
+</html>
