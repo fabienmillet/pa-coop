@@ -2,11 +2,11 @@
 
 # pa-coop: self-hosted co-op for Prison Architect
 
-A replacement for Prison Architect's online co-op backend, plus a small client mod.
+A replacement for Prison Architect's online co-op backend, plus a small client mod. Website: **https://pa-coop.zipname.fr**
 
 - **Self-hosted**: your own server instead of the Photon cloud. Run it as a dedicated server, or let the game start it when you host.
 - **More players**: up to 16 per game by default (tested with 13); the game itself limits a game to 4.
-- **Sync that holds**: when the game detects a desync (`Object List Sync Error`), the mod reloads the host's prison in a couple of seconds instead of kicking the player.
+- **Desync safety net**: when the game reports a desync (`Object List Sync Error`), the mod asks the host to resend the prison instead of dropping the player. It does not catch every case.
 - **Easy to install**: copy three files next to the game. Steam and Epic builds play together.
 
 Works with the current version of the game (The_Jailhouse_1.02, r11056), Windows (Steam, Epic) and Linux (Steam).

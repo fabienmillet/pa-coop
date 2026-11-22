@@ -1,3 +1,8 @@
+/* Fonts (SIL Open Font License): Inter, JetBrains Mono, Archivo, Permanent Marker. Latin subset, self-hosted. */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/inter.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/jetbrains-mono.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-weight: 800; font-display: swap; src: url(fonts/archivo.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Permanent Marker'; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/permanent-marker.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
   --ink: #23211d;
   --ink-2: #3a3833;
@@ -50,7 +55,7 @@ code, pre { font-family: var(--mono); }
 .menu i, .release i { flex: 1; min-width: 20px; border-bottom: 2px dotted #9a968c; transform: translateY(5px); }
 .menu span { font-weight: 600; font-size: 15px; color: var(--brown); white-space: nowrap; }
 .menu a:hover b, .release a:hover b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.ver { margin-top: auto; font: 12px var(--mono); color: #8a867c; }
+.ver { margin-top: auto; font: 12px var(--mono); color: #6f6a60; }
 
 .polaroid { margin: 0; padding: 12px 12px 0; background: #fff; box-shadow: 3px 6px 10px rgba(0,0,0,.28); }
 .polaroid figcaption { font-family: var(--marker); font-size: 19px; padding: 14px 4px 16px; line-height: 1.25; }
@@ -133,7 +138,7 @@ pre a { color: var(--code-fg); }
 
 /* ---------- Work order ---------- */
 .work-order { background: #fbf6e6; box-shadow: 0 10px 22px rgba(0,0,0,.35); transform: rotate(-.4deg); padding-bottom: 28px; }
-.work-order header { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #d9822b; color: #fff; padding: 14px 40px; }
+.work-order header { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #a85a14; color: #fff; padding: 14px 40px; }
 .work-order h2 { font: 800 22px var(--head); letter-spacing: .06em; text-transform: uppercase; }
 .work-order header span { font: 15px var(--mono); }
 .wo-intro { padding: 24px 40px 0; font-size: 17px; color: var(--ink-2); }
@@ -151,7 +156,7 @@ pre a { color: var(--code-fg); }
 .incidents article { background: var(--paper-2); padding: 24px 24px 30px; border-top: 8px solid #c0392b; box-shadow: 0 8px 16px rgba(0,0,0,.35); }
 .incidents article:nth-child(1) { transform: rotate(-1.2deg); } .incidents article:nth-child(2) { transform: rotate(.8deg); } .incidents article:nth-child(3) { transform: rotate(-.5deg); }
 .incidents article:nth-child(4) { transform: rotate(1deg); } .incidents article:nth-child(5) { transform: rotate(-.8deg); } .incidents article:nth-child(6) { transform: rotate(1.3deg); }
-.incidents small { display: block; font: 700 12px var(--mono); color: #9a958a; text-transform: uppercase; margin-bottom: 8px; }
+.incidents small { display: block; font: 700 12px var(--mono); color: #6f6a60; text-transform: uppercase; margin-bottom: 8px; }
 .incidents h3 { font-size: 19px; line-height: 1.35; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #d9d2c0; }
 .incidents p { color: var(--ink-2); }
 
@@ -207,3 +212,16 @@ footer { background: #16181c; color: #8b929b; padding: 32px 0; }
   .menu i { display: none; }
   .menu span { width: 100%; padding-left: 19px; font-size: 14px; }
 }
+
+/* ---------- Legal and 404 pages ---------- */
+.page-doc { min-height: 100vh; padding: 56px 0 80px; }
+.back { margin-bottom: 24px; }
+.back a, footer a { color: #f2ecdf; }
+.doc { max-width: 820px; margin-inline: auto; background: var(--paper-2); padding: 48px 56px; box-shadow: 0 10px 22px rgba(0,0,0,.35); }
+.doc h1 { font: 800 34px var(--head); margin-bottom: 6px; }
+.doc-meta { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.doc h2 { font: 800 20px var(--head); margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 2px solid rgba(125,90,42,.4); }
+.doc p { color: var(--ink-2); margin-bottom: 12px; }
+.lost { max-width: 640px; margin: 10vh auto 0; }
+.lost .signature a { text-decoration: none; }
+@media (max-width: 600px) { .doc { padding: 32px 22px; } }

@@ -60,7 +60,7 @@ def banner():
   <g font-family="{FONT}">
     <text x="760" y="140" font-size="92" font-weight="800" fill="#fff" letter-spacing="-2">pa<tspan fill="#f08a24">-</tspan>coop</text>
     <text x="764" y="184" font-size="27" font-weight="600" fill="#d8dee8">Self-hosted co-op for Prison Architect</text>
-    {checks(764, 226, ["Up to 16 players instead of 4", "Desyncs fixed on the fly, no more kicks"], 20, 30)}
+    {checks(764, 226, ["Up to 16 players instead of 4", "Steam and Epic players together"], 20, 30)}
   </g>
 </svg>
 '''
@@ -83,8 +83,8 @@ def social():
   <g font-family="{FONT}">
     <text x="660" y="250" font-size="128" font-weight="800" fill="#fff" letter-spacing="-3">pa<tspan fill="#f08a24">-</tspan>coop</text>
     <text x="666" y="304" font-size="30" font-weight="600" fill="#d8dee8">Self-hosted co-op for Prison Architect</text>
-    {checks(666, 372, ["Up to 16 players instead of 4", "Desyncs fixed on the fly, no more kicks",
-                       "Steam and Epic players together", "Host from the game, or a dedicated server"], 25, 44)}
+    {checks(666, 372, ["Up to 16 players instead of 4", "Steam and Epic players together",
+                       "Host from the game, or a dedicated server", "Tries to recover from desyncs"], 25, 44)}
     <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/prison-architect-server</text>
   </g>
 </svg>

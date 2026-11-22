@@ -29,11 +29,11 @@
     <text x="666" y="372" font-size="25" font-weight="800" fill="#f08a24">✓</text>
     <text x="698" y="372" font-size="25" font-weight="600" fill="#ffffff">Up to 16 players instead of 4</text>
     <text x="666" y="416" font-size="25" font-weight="800" fill="#f08a24">✓</text>
-    <text x="698" y="416" font-size="25" font-weight="600" fill="#ffffff">Desyncs fixed on the fly, no more kicks</text>
+    <text x="698" y="416" font-size="25" font-weight="600" fill="#ffffff">Steam and Epic players together</text>
     <text x="666" y="460" font-size="25" font-weight="800" fill="#f08a24">✓</text>
-    <text x="698" y="460" font-size="25" font-weight="600" fill="#ffffff">Steam and Epic players together</text>
+    <text x="698" y="460" font-size="25" font-weight="600" fill="#ffffff">Host from the game, or a dedicated server</text>
     <text x="666" y="504" font-size="25" font-weight="800" fill="#f08a24">✓</text>
-    <text x="698" y="504" font-size="25" font-weight="600" fill="#ffffff">Host from the game, or a dedicated server</text>
+    <text x="698" y="504" font-size="25" font-weight="600" fill="#ffffff">Tries to recover from desyncs</text>
     <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/prison-architect-server</text>
   </g>
 </svg>

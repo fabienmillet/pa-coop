@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"strings"
 	"sync"
 	"time"
 
@@ -25,6 +26,7 @@ var (
 	count    = flag.Int("n", 1, "nombre de bots")
 	duration = flag.Duration("for", 10*time.Minute, "durée de présence")
 	prefix   = flag.String("name", "Bot", "préfixe des noms")
+	names    = flag.String("names", "", "noms des bots, séparés par des virgules (sinon préfixe + numéro)")
 )
 
 // Init envoyé par le jeu (version du protocole + AppId), relevé dans une capture.
@@ -42,6 +44,11 @@ func gameString(s string) []byte { return append([]byte{0x12, byte(len(s))}, s..
 func runBot(i int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	name := fmt.Sprintf("%s%d", *prefix, i)
+	if *names != "" {
+		if l := strings.Split(*names, ","); i-1 < len(l) {
+			name = strings.TrimSpace(l[i-1])
+		}
+	}
 	c, err := photon.Dial(*addr, initBody)
 	if err != nil {
 		log.Printf("%s : connexion : %v", name, err)
