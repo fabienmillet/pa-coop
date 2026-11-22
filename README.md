@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.svg" alt="pa-coop: self-hosted co-op for Prison Architect" width="100%"></p>
+
 # pa-coop: self-hosted co-op for Prison Architect
 
 A replacement for Prison Architect's online co-op backend, plus a small client mod.
