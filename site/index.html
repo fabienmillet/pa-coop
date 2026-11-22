@@ -6,6 +6,9 @@
 <title>pa-coop · Prison Architect co-op on your own server</title>
 <meta name="description" content="pa-coop runs Prison Architect's online co-op on your own server: more than 4 players, Steam and Epic players in the same game, host from the game or run a dedicated server. Free and open source.">
 <link rel="canonical" href="https://pa-coop.zipname.fr/">
+<link rel="alternate" hreflang="en" href="https://pa-coop.zipname.fr/">
+<link rel="alternate" hreflang="fr" href="https://pa-coop.zipname.fr/fr/">
+<link rel="alternate" hreflang="x-default" href="https://pa-coop.zipname.fr/">
 <meta name="theme-color" content="#2a2d33">
 <meta name="color-scheme" content="dark light">
 <meta name="author" content="Fabien MILLET">
@@ -19,6 +22,7 @@
 <meta property="og:image:height" content="640">
 <meta property="og:image:alt" content="pa-coop: self-hosted co-op for Prison Architect, over a screenshot of a prison">
 <meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="pa-coop · Prison Architect co-op on your own server">
 <meta name="twitter:description" content="More than 4 players, Steam and Epic in the same game, host from the game or run a dedicated server.">
@@ -47,7 +51,7 @@
       "applicationCategory": "GameApplication",
       "applicationSubCategory": "Game mod",
       "operatingSystem": "Windows, Linux",
-      "softwareVersion": "0.1.0",
+      "softwareVersion": "0.1.1",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
@@ -72,13 +76,14 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/style.css?v=48ecc2f0">
+<link rel="stylesheet" href="/style.css?v=acc30140">
 </head>
 <body>
 
 <!-- ============ Folder ============ -->
 <header class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <nav class="lang-switch" aria-label="Language"><a href="/" aria-current="page">EN</a><a href="/fr/" hreflang="fr" lang="fr">FR</a></nav>
   <div class="folder">
     <div class="folder-tab" aria-hidden="true"></div>
     <div class="folder-body">
@@ -92,17 +97,17 @@
           <a href="#server"><b>Run a server</b><i></i><span>Docker, Pterodactyl</span></a>
           <a href="https://github.com/fabienmillet/pa-coop"><b>Source code</b><i></i><span>GitHub</span></a>
         </nav>
-        <p class="ver">ver: pa-coop 0.1.0 · MIT · works with The_Jailhouse_1.02 (r11056)</p>
+        <p class="ver">ver: pa-coop 0.1.1 · MIT · works with The_Jailhouse_1.02 (r11056)</p>
       </section>
       <section class="sheet sheet-right ruled" aria-label="Screenshots">
         <div class="clip" aria-hidden="true"></div>
         <figure class="polaroid p-13">
-          <img src="img/coop-13.webp" fetchpriority="high" width="300" height="300" alt="In-game player list showing 13 players in one prison">
+          <img src="/img/coop-13.webp" fetchpriority="high" width="300" height="300" alt="In-game player list showing 13 players in one prison">
           <figcaption>13 players, one prison</figcaption>
         </figure>
         <p class="scribble s-13">the game stops at 4. eleven of these are our test bots.</p>
         <figure class="polaroid p-two">
-          <img src="img/coop-two.webp" srcset="img/coop-two-640.webp 640w, img/coop-two.webp 1280w" sizes="(max-width: 900px) calc(100vw - 80px), 520px" width="1280" height="400" alt="The same prison on two computers side by side">
+          <img src="/img/coop-two.webp" srcset="/img/coop-two-640.webp 640w, /img/coop-two.webp 1280w" sizes="(max-width: 900px) calc(100vw - 80px), 520px" width="1280" height="400" alt="The same prison on two computers side by side">
           <figcaption>Same prison, two PCs</figcaption>
         </figure>
       </section>
@@ -134,11 +139,11 @@
   <div class="wrap">
     <h2 class="marker light">From the cameras</h2>
     <div class="board">
-      <figure class="polaroid pin red"><img src="img/canteen.webp" srcset="img/canteen-640.webp 640w, img/canteen.webp 1060w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="The canteen at lunch, packed with prisoners" loading="lazy" width="1060" height="640"><figcaption>Lunch, 393 inmates. Same on every screen.</figcaption></figure>
-      <figure class="polaroid pin blue"><img src="img/overview.webp" srcset="img/overview-640.webp 640w, img/overview.webp 1090w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Ironfort seen from above" loading="lazy" width="1090" height="640"><figcaption>Ironfort from above</figcaption></figure>
-      <figure class="polaroid pin green tall"><img src="img/block.webp" srcset="img/block-640.webp 640w, img/block.webp 1060w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="A cell block" loading="lazy" width="1060" height="620"><figcaption>Cell block B</figcaption></figure>
-      <figure class="polaroid pin yellow"><img src="img/yard2.webp" srcset="img/yard2-640.webp 640w, img/yard2.webp 1100w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Free time in the yard" loading="lazy" width="1100" height="560"><figcaption>Free time in the yard</figcaption></figure>
-      <figure class="polaroid pin red"><img src="img/cells.webp" srcset="img/cells-640.webp 640w, img/cells.webp 770w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Cells, shower block and morgue" loading="lazy" width="770" height="680"><figcaption>Host on Epic, friend on Steam</figcaption></figure>
+      <figure class="polaroid pin red"><img src="/img/canteen.webp" srcset="/img/canteen-640.webp 640w, /img/canteen.webp 1060w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="The canteen at lunch, packed with prisoners" loading="lazy" width="1060" height="640"><figcaption>Lunch, 393 inmates. Same on every screen.</figcaption></figure>
+      <figure class="polaroid pin blue"><img src="/img/overview.webp" srcset="/img/overview-640.webp 640w, /img/overview.webp 1090w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Ironfort seen from above" loading="lazy" width="1090" height="640"><figcaption>Ironfort from above</figcaption></figure>
+      <figure class="polaroid pin green tall"><img src="/img/block.webp" srcset="/img/block-640.webp 640w, /img/block.webp 1060w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="A cell block" loading="lazy" width="1060" height="620"><figcaption>Cell block B</figcaption></figure>
+      <figure class="polaroid pin yellow"><img src="/img/yard2.webp" srcset="/img/yard2-640.webp 640w, /img/yard2.webp 1100w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Free time in the yard" loading="lazy" width="1100" height="560"><figcaption>Free time in the yard</figcaption></figure>
+      <figure class="polaroid pin red"><img src="/img/cells.webp" srcset="/img/cells-640.webp 640w, /img/cells.webp 770w" sizes="(max-width: 900px) calc(100vw - 80px), 360px" alt="Cells, shower block and morgue" loading="lazy" width="770" height="680"><figcaption>Host on Epic, friend on Steam</figcaption></figure>
       <p class="index-card marker pin blue">All shots taken in the real game, during a co-op session through a pa-coop server.</p>
     </div>
   </div>
@@ -244,7 +249,7 @@ servers=Us=pa.example.org, Local=local</code></pre>
   <div class="wrap">
     <article class="release">
       <h2>Release form</h2>
-      <p class="rel-meta">pa-coop 0.1.0 · MIT licence · <a href="https://github.com/fabienmillet/pa-coop">github.com/fabienmillet/pa-coop</a></p>
+      <p class="rel-meta">pa-coop 0.1.1 · MIT licence · <a href="https://github.com/fabienmillet/pa-coop">github.com/fabienmillet/pa-coop</a></p>
       <ul>
         <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/install-pa-coop.bat"><b>install-pa-coop.bat</b><i></i><span>Windows installer, start here</span></a></li>
         <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/pa-coop-windows.zip"><b>pa-coop-windows.zip</b><i></i><span>the mod and server, to copy by hand</span></a></li>
@@ -263,7 +268,7 @@ servers=Us=pa.example.org, Local=local</code></pre>
 <footer>
   <div class="wrap foot">
     <span class="marker">pa-coop</span>
-    <p>Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game. <a href="/legal">Legal notice and privacy</a> · <a href="https://github.com/fabienmillet/pa-coop">GitHub</a></p>
+    <p>Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game. <a href="/legal">Legal notice and privacy</a> · <a href="https://github.com/fabienmillet/pa-coop">GitHub</a> · <a href="/fr/" hreflang="fr" lang="fr">Version française</a></p>
   </div>
 </footer>
 </body>
