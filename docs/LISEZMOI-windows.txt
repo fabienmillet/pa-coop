@@ -1,0 +1,27 @@
+pa-coop : co-op Prison Architect sur votre propre serveur (Windows, Steam ou Epic)
+=================================================================================
+
+Installation
+------------
+1. Ouvrez le dossier du jeu :
+   - Steam : clic droit sur Prison Architect > Gérer > Parcourir les fichiers locaux
+   - Epic  : Bibliothèque > ... > Gérer > icône dossier
+2. Copiez-y dbghelp.dll, pacoop-server.exe et pacoop.txt (à côté de « Prison Architect64.exe »).
+3. Ouvrez pacoop.txt et choisissez :
+   - pour héberger : server=local
+   - pour rejoindre un ami : server=ADRESSE_DE_L_AMI
+   - pour choisir dans le jeu : servers=Copains=ADRESSE, Local=local  (menu « Region »)
+4. Lancez le jeu normalement, puis « Go Online » (héberger) ou « Join Online Game » (rejoindre).
+
+Jouer par Internet (hôte)
+-------------------------
+Vos amis doivent pouvoir joindre les ports TCP 4530, 4531 et 4533 de votre PC.
+- Le mod essaie de les ouvrir sur votre box tout seul (UPnP). Si ça ne marche pas, ouvrez-les
+  à la main dans votre box (redirection de ports vers votre PC) et autorisez-les dans le pare-feu.
+- Autre solution, sans ports à ouvrir : un VPN entre amis (Tailscale, ZeroTier, NetBird...),
+  et l'adresse VPN de l'hôte dans pacoop.txt.
+
+Si une désynchronisation survient, le mod recharge la prison de l'hôte au lieu de vous déconnecter.
+
+Journaux : pacoop.log et pacoop-server.log dans le dossier du jeu.
+Désinstaller : supprimez les trois fichiers (le jeu repasse sur le multijoueur officiel).

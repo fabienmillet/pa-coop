@@ -1,0 +1,18 @@
+# pa-coop : configuration (à placer dans le dossier du jeu, à côté du jeu)
+#
+# Pour HÉBERGER une partie : le mod lance son propre serveur.
+#   server=local
+#
+# Pour REJOINDRE un ami ou un serveur dédié : son adresse (IP ou nom), et le port s'il n'est pas 4533.
+#   server=203.0.113.5
+#   server=pa.exemple.fr:14533
+#
+# Plusieurs serveurs au choix dans le menu « Region » du jeu (Go Online / Join Online Game) :
+#   servers=Copains=pa.exemple.fr, Local=local, Autre=203.0.113.5:14533
+# (« local » = serveur lancé par le mod pour héberger ; remplace la ligne server)
+#
+# Sans ligne server ni servers, le jeu utilise le multijoueur officiel.
+server=local
+
+# Avec server=local : demander à la box d'ouvrir les ports (UPnP). 0 pour désactiver.
+upnp=1

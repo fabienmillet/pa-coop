@@ -1,0 +1,19 @@
+pa-coop : co-op Prison Architect sur votre propre serveur (Linux, version Steam native)
+====================================================================================
+
+Installation
+------------
+1. Copiez pacoop.so, pacoop-server et pacoop.txt dans le dossier du jeu
+   (clic droit sur Prison Architect > Gérer > Parcourir les fichiers locaux).
+2. Dans Steam : Prison Architect > Propriétés > Options de lancement :
+       LD_PRELOAD="./pacoop.so" %command%
+3. Ouvrez pacoop.txt et choisissez :
+   - pour héberger : server=local
+   - pour rejoindre un ami : server=ADRESSE_DE_L_AMI
+   - pour choisir dans le jeu : servers=Copains=ADRESSE, Local=local  (menu « Region »)
+4. Lancez le jeu, puis « Go Online » (héberger) ou « Join Online Game » (rejoindre).
+
+Jouer par Internet (hôte) : ports TCP 4530, 4531 et 4533 à rendre joignables (UPnP automatique,
+redirection sur la box, ou VPN entre amis).
+
+Serveur dédié : ./pacoop-server  (options : ./pacoop-server -h)
