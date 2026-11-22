@@ -1,5 +1,5 @@
 # pa-coop : serveur dédié Prison Architect (port TCP unique, 4533 par défaut)
-#   docker run -d -p 4533:4533 ghcr.io/fabienmillet/prison-architect-server
+#   docker run -d -p 4533:4533 ghcr.io/fabienmillet/pa-coop
 FROM docker.io/library/golang:1.24-alpine AS build
 WORKDIR /src
 COPY server/ .

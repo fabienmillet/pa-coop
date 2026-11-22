@@ -2,7 +2,7 @@
     "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PANEL",
     "meta": {
         "version": "PLCN_v1",
-        "update_url": "https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/deploy/pelican/egg-pa-coop.json"
+        "update_url": "https://raw.githubusercontent.com/fabienmillet/pa-coop/main/deploy/pelican/egg-pa-coop.json"
     },
     "exported_at": "2026-11-22T15:00:00+00:00",
     "name": "Prison Architect (pa-coop)",
@@ -26,7 +26,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\n# pa-coop : télécharge le serveur depuis les releases GitHub\nset -e\ncd /mnt/server\nREPO=fabienmillet/prison-architect-server\nif [ -z \"$VERSION\" ] || [ \"$VERSION\" = \"latest\" ]; then\n  URL=https://github.com/$REPO/releases/latest/download/pacoop-server-linux-amd64\nelse\n  URL=https://github.com/$REPO/releases/download/$VERSION/pacoop-server-linux-amd64\nfi\necho \"Téléchargement de $URL\"\ncurl -fsSL -o pacoop-server \"$URL\"\nchmod +x pacoop-server\necho \"pa-coop installé\"",
+            "script": "#!/bin/bash\n# pa-coop : télécharge le serveur depuis les releases GitHub\nset -e\ncd /mnt/server\nREPO=fabienmillet/pa-coop\nif [ -z \"$VERSION\" ] || [ \"$VERSION\" = \"latest\" ]; then\n  URL=https://github.com/$REPO/releases/latest/download/pacoop-server-linux-amd64\nelse\n  URL=https://github.com/$REPO/releases/download/$VERSION/pacoop-server-linux-amd64\nfi\necho \"Téléchargement de $URL\"\ncurl -fsSL -o pacoop-server \"$URL\"\nchmod +x pacoop-server\necho \"pa-coop installé\"",
             "container": "ghcr.io/parkervcp/installers:debian",
             "entrypoint": "bash"
         }

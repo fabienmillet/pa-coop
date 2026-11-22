@@ -15,11 +15,11 @@ Works with the current version of the game (The_Jailhouse_1.02, r11056), Windows
 
 ### Quick install
 
-- **Windows** (Steam or Epic): download [`install-pa-coop.bat`](https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat)
+- **Windows** (Steam or Epic): download [`install-pa-coop.bat`](https://github.com/fabienmillet/pa-coop/releases/latest/download/install-pa-coop.bat)
   and double-click it. It finds the game, installs the mod and asks whether you host or join (and the address to join).
   Run it again to switch mode or uninstall.
 - **Linux** (Steam, native version):
-  `curl -fsSL https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.sh | bash`
+  `curl -fsSL https://raw.githubusercontent.com/fabienmillet/pa-coop/main/install/install.sh | bash`
 
 ### Manual install
 
@@ -66,7 +66,7 @@ One TCP port (4533 by default). Players use `server=<address>` (or `server=<addr
 **Docker** (amd64 and arm64):
 
 ```sh
-docker run -d --name pa-coop -p 4533:4533 -e PACOOP_MAX_PLAYERS=16 ghcr.io/fabienmillet/prison-architect-server
+docker run -d --name pa-coop -p 4533:4533 -e PACOOP_MAX_PLAYERS=16 ghcr.io/fabienmillet/pa-coop
 ```
 
 Environment variables: `PACOOP_PORT`, `PACOOP_MAX_PLAYERS`, `PACOOP_PUBLIC`, `PACOOP_UPNP`, `PACOOP_VERBOSE`.

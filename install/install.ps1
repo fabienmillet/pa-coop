@@ -1,10 +1,10 @@
 # pa-coop : installation du mode multijoueur pour Prison Architect (Windows, Steam ou Epic)
 #
 # Lancement le plus simple : double-cliquer sur install-pa-coop.bat
-# ou, dans PowerShell :  irm https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.ps1 | iex
+# ou, dans PowerShell :  irm https://raw.githubusercontent.com/fabienmillet/pa-coop/main/install/install.ps1 | iex
 
 $ErrorActionPreference = 'Stop'
-$Repo = 'fabienmillet/prison-architect-server'
+$Repo = 'fabienmillet/pa-coop'
 $Files = @('dbghelp.dll', 'pacoop-server.exe', 'pacoop.txt')
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 

@@ -34,6 +34,6 @@
     <text x="698" y="460" font-size="25" font-weight="600" fill="#ffffff">Host from the game, or a dedicated server</text>
     <text x="666" y="504" font-size="25" font-weight="800" fill="#f08a24">✓</text>
     <text x="698" y="504" font-size="25" font-weight="600" fill="#ffffff">Tries to recover from desyncs</text>
-    <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/prison-architect-server</text>
+    <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/pa-coop</text>
   </g>
 </svg>

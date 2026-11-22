@@ -85,7 +85,7 @@ def social():
     <text x="666" y="304" font-size="30" font-weight="600" fill="#d8dee8">Self-hosted co-op for Prison Architect</text>
     {checks(666, 372, ["Up to 16 players instead of 4", "Steam and Epic players together",
                        "Host from the game, or a dedicated server", "Tries to recover from desyncs"], 25, 44)}
-    <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/prison-architect-server</text>
+    <text x="666" y="560" font-size="23" font-weight="600" fill="#9fb0c6">github.com/fabienmillet/pa-coop</text>
   </g>
 </svg>
 '''

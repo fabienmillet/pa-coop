@@ -1,8 +1,8 @@
 #!/bin/bash
 # pa-coop : installation du mode multijoueur pour Prison Architect (Linux, version Steam native)
-#   curl -fsSL https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/fabienmillet/pa-coop/main/install/install.sh | bash
 set -euo pipefail
-REPO=fabienmillet/prison-architect-server
+REPO=fabienmillet/pa-coop
 FILES="pacoop.so pacoop-server pacoop.txt"
 
 say() { printf '%s\n' "$*"; }

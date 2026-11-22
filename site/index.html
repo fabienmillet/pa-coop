@@ -51,11 +51,11 @@
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-      "downloadUrl": "https://github.com/fabienmillet/prison-architect-server/releases/latest",
+      "downloadUrl": "https://github.com/fabienmillet/pa-coop/releases/latest",
       "screenshot": "https://pa-coop.zipname.fr/img/canteen.webp",
       "image": "https://pa-coop.zipname.fr/img/social.jpg",
       "author": { "@type": "Person", "name": "Fabien MILLET", "url": "https://github.com/fabienmillet" },
-      "sameAs": ["https://github.com/fabienmillet/prison-architect-server"]
+      "sameAs": ["https://github.com/fabienmillet/pa-coop"]
     },
     {
       "@type": "FAQPage",
@@ -87,10 +87,10 @@
         <div class="dash-rule" aria-hidden="true"></div>
         <p class="intro">Co-op for Prison Architect on your own server. Room for more than 4 players, Steam and Epic in the same game.</p>
         <nav class="menu" aria-label="Main">
-          <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat"><b>Download for Windows</b><i></i><span>install-pa-coop.bat</span></a>
+          <a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/install-pa-coop.bat"><b>Download for Windows</b><i></i><span>install-pa-coop.bat</span></a>
           <a href="#install"><b>Linux</b><i></i><span>install.sh</span></a>
           <a href="#server"><b>Run a server</b><i></i><span>Docker, Pterodactyl</span></a>
-          <a href="https://github.com/fabienmillet/prison-architect-server"><b>Source code</b><i></i><span>GitHub</span></a>
+          <a href="https://github.com/fabienmillet/pa-coop"><b>Source code</b><i></i><span>GitHub</span></a>
         </nav>
         <p class="ver">ver: pa-coop 0.1.0 · MIT · works with The_Jailhouse_1.02 (r11056)</p>
       </section>
@@ -172,11 +172,11 @@
       <div class="clipboard-sheet ruled">
         <h2 class="marker">Install</h2>
         <ol class="steps">
-          <li><h3>Windows (Steam or Epic)</h3><p>Download <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat">install-pa-coop.bat</a> from the latest release and double-click it. It finds the game, copies three files next to it and asks one question: host or join.</p></li>
+          <li><h3>Windows (Steam or Epic)</h3><p>Download <a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/install-pa-coop.bat">install-pa-coop.bat</a> from the latest release and double-click it. It finds the game, copies three files next to it and asks one question: host or join.</p></li>
           <li><h3>Host</h3><p>Pick "Host a game". Load a prison, then Menu &gt; Go Online. The game starts the server for you and the router opens port 4533 (UPnP). The installer shows the address to give your friends.</p></li>
           <li><h3>Join</h3><p>Pick "Join a friend" and type their address. In the game: Join Online Game, their prison is in the list.</p></li>
           <li><h3>Linux (Steam)</h3><p>Same thing from a terminal, then add the launch option it prints:</p>
-            <pre><code>curl -fsSL https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.sh | bash</code></pre></li>
+            <pre><code>curl -fsSL https://raw.githubusercontent.com/fabienmillet/pa-coop/main/install/install.sh | bash</code></pre></li>
         </ol>
         <p class="scribble">Router won't open the port? A VPN between friends (Tailscale, ZeroTier, NetBird) works too.</p>
       </div>
@@ -208,14 +208,14 @@ servers=Us=pa.example.org, Local=local</code></pre>
 <pre><code>docker run -d --name pa-coop \
   -p 4533:4533 \
   -e PACOOP_MAX_PLAYERS=16 \
-  ghcr.io/fabienmillet/prison-architect-server</code></pre></div>
-        <div><h3>Plain binary</h3><p>Linux (amd64, arm64) or Windows, from the <a href="https://github.com/fabienmillet/prison-architect-server/releases/latest">release page</a>.</p>
+  ghcr.io/fabienmillet/pa-coop</code></pre></div>
+        <div><h3>Plain binary</h3><p>Linux (amd64, arm64) or Windows, from the <a href="https://github.com/fabienmillet/pa-coop/releases/latest">release page</a>.</p>
 <pre><code>./pacoop-server
 ./pacoop-server -port 14533 -max-players 24
 ./pacoop-server -h</code></pre></div>
         <div><h3>Pterodactyl / Pelican</h3><p>Import the egg, create a server with one port allocation, start. Reinstall to update.</p>
-<pre><code><a href="https://github.com/fabienmillet/prison-architect-server/blob/master/deploy/pterodactyl/egg-pa-coop.json">deploy/pterodactyl/egg-pa-coop.json</a>
-<a href="https://github.com/fabienmillet/prison-architect-server/blob/master/deploy/pelican/egg-pa-coop.json">deploy/pelican/egg-pa-coop.json</a></code></pre></div>
+<pre><code><a href="https://github.com/fabienmillet/pa-coop/blob/main/deploy/pterodactyl/egg-pa-coop.json">deploy/pterodactyl/egg-pa-coop.json</a>
+<a href="https://github.com/fabienmillet/pa-coop/blob/main/deploy/pelican/egg-pa-coop.json">deploy/pelican/egg-pa-coop.json</a></code></pre></div>
       </div>
       <p class="wo-opts">Options: PACOOP_PORT · PACOOP_MAX_PLAYERS · PACOOP_UPNP · PACOOP_PUBLIC · PACOOP_VERBOSE</p>
       <div class="wo-sign"><span class="marker">W.</span><small>Approved by: the Warden</small></div>
@@ -244,16 +244,16 @@ servers=Us=pa.example.org, Local=local</code></pre>
   <div class="wrap">
     <article class="release">
       <h2>Release form</h2>
-      <p class="rel-meta">pa-coop 0.1.0 · MIT licence · <a href="https://github.com/fabienmillet/prison-architect-server">github.com/fabienmillet/prison-architect-server</a></p>
+      <p class="rel-meta">pa-coop 0.1.0 · MIT licence · <a href="https://github.com/fabienmillet/pa-coop">github.com/fabienmillet/pa-coop</a></p>
       <ul>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat"><b>install-pa-coop.bat</b><i></i><span>Windows installer, start here</span></a></li>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pa-coop-windows.zip"><b>pa-coop-windows.zip</b><i></i><span>the mod and server, to copy by hand</span></a></li>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pa-coop-linux.tar.gz"><b>pa-coop-linux.tar.gz</b><i></i><span>Linux (Steam, native version)</span></a></li>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest"><b>pacoop-server-linux-amd64 / arm64</b><i></i><span>dedicated server</span></a></li>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/releases/latest/download/pacoop-server-windows-amd64.exe"><b>pacoop-server-windows-amd64.exe</b><i></i><span>dedicated server on Windows</span></a></li>
-        <li><a href="https://github.com/fabienmillet/prison-architect-server/pkgs/container/prison-architect-server"><b>ghcr.io/…/prison-architect-server</b><i></i><span>Docker image</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/install-pa-coop.bat"><b>install-pa-coop.bat</b><i></i><span>Windows installer, start here</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/pa-coop-windows.zip"><b>pa-coop-windows.zip</b><i></i><span>the mod and server, to copy by hand</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/pa-coop-linux.tar.gz"><b>pa-coop-linux.tar.gz</b><i></i><span>Linux (Steam, native version)</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest"><b>pacoop-server-linux-amd64 / arm64</b><i></i><span>dedicated server</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/releases/latest/download/pacoop-server-windows-amd64.exe"><b>pacoop-server-windows-amd64.exe</b><i></i><span>dedicated server on Windows</span></a></li>
+        <li><a href="https://github.com/fabienmillet/pa-coop/pkgs/container/pa-coop"><b>ghcr.io/fabienmillet/pa-coop</b><i></i><span>Docker image</span></a></li>
       </ul>
-      <p class="marker blue-ink">Released. Report problems on <a href="https://github.com/fabienmillet/prison-architect-server/issues">GitHub</a>.</p>
+      <p class="marker blue-ink">Released. Report problems on <a href="https://github.com/fabienmillet/pa-coop/issues">GitHub</a>.</p>
     </article>
   </div>
 </section>
@@ -263,7 +263,7 @@ servers=Us=pa.example.org, Local=local</code></pre>
 <footer>
   <div class="wrap foot">
     <span class="marker">pa-coop</span>
-    <p>Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game. <a href="/legal">Legal notice and privacy</a> · <a href="https://github.com/fabienmillet/prison-architect-server">GitHub</a></p>
+    <p>Independent open-source project (MIT). Not affiliated with Paradox Interactive, Double Eleven, Introversion or Exit Games. Prison Architect is a trademark of Paradox Interactive; screenshots taken in the game. <a href="/legal">Legal notice and privacy</a> · <a href="https://github.com/fabienmillet/pa-coop">GitHub</a></p>
   </div>
 </footer>
 </body>
