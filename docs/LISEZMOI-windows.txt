@@ -15,8 +15,8 @@ Installation
 
 Jouer par Internet (hôte)
 -------------------------
-Vos amis doivent pouvoir joindre les ports TCP 4530, 4531 et 4533 de votre PC.
-- Le mod essaie de les ouvrir sur votre box tout seul (UPnP). Si ça ne marche pas, ouvrez-les
+Vos amis doivent pouvoir joindre le port TCP 4533 de votre PC.
+- Le mod essaie de l'ouvrir sur votre box tout seul (UPnP). Si ça ne marche pas, ouvrez-le
   à la main dans votre box (redirection de ports vers votre PC) et autorisez-les dans le pare-feu.
 - Autre solution, sans ports à ouvrir : un VPN entre amis (Tailscale, ZeroTier, NetBird...),
   et l'adresse VPN de l'hôte dans pacoop.txt.

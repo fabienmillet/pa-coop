@@ -70,16 +70,13 @@ static void start_local_server(void) {
 			dup2(fd, 1);
 			dup2(fd, 2);
 		}
-		char ppid[16], ns[16], ms[16], gs[16];
-		int off = g_cfg.port_offset;
+		char ppid[16], port[16];
 		snprintf(ppid, sizeof ppid, "%d", (int)parent);
-		snprintf(ns, sizeof ns, "%d", 4533 + off);
-		snprintf(ms, sizeof ms, "%d", 4530 + off);
-		snprintf(gs, sizeof gs, "%d", 4531 + off);
+		snprintf(port, sizeof port, "%d", 4533 + g_cfg.port_offset);
 		if (g_cfg.upnp)
-			execl("./pacoop-server", "pacoop-server", "-parent", ppid, "-ns-port", ns, "-master-port", ms, "-game-port", gs, "-upnp", (char *)NULL);
+			execl("./pacoop-server", "pacoop-server", "-parent", ppid, "-port", port, "-upnp", (char *)NULL);
 		else
-			execl("./pacoop-server", "pacoop-server", "-parent", ppid, "-ns-port", ns, "-master-port", ms, "-game-port", gs, (char *)NULL);
+			execl("./pacoop-server", "pacoop-server", "-parent", ppid, "-port", port, (char *)NULL);
 		_exit(127);
 	}
 	fprintf(stderr, "[pa-coop] serveur local lancé (pid %d)\n", (int)pid);

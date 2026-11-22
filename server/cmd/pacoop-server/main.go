@@ -96,9 +96,10 @@ var (
 	upnpProbe  = flag.Bool("upnp-test", false, "cherche seulement le routeur UPnP, l'affiche et quitte (n'ouvre rien)")
 	chaosFile  = flag.String("chaos-file", "", "TEST : si ce fichier existe, perdre les messages de l'hôte vers les autres joueurs pendant le nombre de secondes qu'il contient (simule une mauvaise connexion)")
 	parentPID  = flag.Int("parent", 0, "s'arrêter quand ce processus (le jeu) se termine")
-	nsPort     = flag.Int("ns-port", 4533, "port du serveur de noms")
-	masterPort = flag.Int("master-port", 4530, "port du serveur maître")
-	gamePort   = flag.Int("game-port", 4531, "port du serveur de jeu")
+	nsPort     = flag.Int("port", 4533, "port TCP du serveur (noms, maître et jeu sur un seul port)")
+	nsPortOld  = flag.Int("ns-port", 0, "ancien nom de -port")
+	masterPort = flag.Int("master-port", 0, "port séparé pour le maître (0 = même port que -port)")
+	gamePort   = flag.Int("game-port", 0, "port séparé pour le serveur de jeu (0 = même port que -port)")
 	region     = flag.String("region", "eu", "nom de région annoncé au jeu")
 	maxPlayers = flag.Int("max-players", 16, "nombre maximum de joueurs par partie (le jeu demande 4)")
 	verbose    = flag.Bool("v", false, "journal détaillé des opérations")
@@ -108,7 +109,7 @@ type regionEntry struct{ code, master string }
 
 var regions []regionEntry
 
-// parseRegions lit -regions : « nom=hôte[:port_noms] », le maître étant sur port_noms-3 (4533 -> 4530).
+// parseRegions lit -regions : « nom=hôte[:port] » (serveurs pa-coop à port unique, 4533 par défaut).
 func parseRegions() error {
 	if *regionsArg == "" {
 		return nil
@@ -131,7 +132,7 @@ func parseRegions() error {
 			host = "127.0.0.1"
 		}
 		code := strings.ToLower(strings.Join(strings.Fields(name), "_"))
-		regions = append(regions, regionEntry{code, net.JoinHostPort(host, fmt.Sprint(port-3))})
+		regions = append(regions, regionEntry{code, net.JoinHostPort(host, fmt.Sprint(port))})
 		log.Printf("région « %s » -> maître %s", code, regions[len(regions)-1].master)
 	}
 	return nil
@@ -144,10 +145,33 @@ func pubHost() string {
 	return "pacoop.server"
 }
 
+// envDefaults : les variables PACOOP_* (Docker, Pterodactyl, Pelican) servent de valeurs par défaut aux options.
+func envDefaults() {
+	for env, fl := range map[string]string{
+		"PACOOP_PORT": "port", "PACOOP_MAX_PLAYERS": "max-players", "PACOOP_PUBLIC": "public",
+		"PACOOP_UPNP": "upnp", "PACOOP_REGION": "region", "PACOOP_VERBOSE": "v",
+	} {
+		if v, ok := os.LookupEnv(env); ok && v != "" {
+			if err := flag.Set(fl, v); err != nil {
+				log.Fatalf("%s=%q : %v", env, v, err)
+			}
+		}
+	}
+}
+
 func main() {
+	envDefaults()
 	flag.Parse()
 	srv := &server{rooms: map[string]*room{}, lobby: map[*client]bool{}}
-	ports := []int{*nsPort, *masterPort, *gamePort}
+	if *nsPortOld != 0 {
+		*nsPort = *nsPortOld
+	}
+	ports := []int{*nsPort}
+	for _, p := range []int{*masterPort, *gamePort} {
+		if p != 0 && p != *nsPort {
+			ports = append(ports, p)
+		}
+	}
 	if *upnpProbe {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
@@ -184,10 +208,16 @@ func main() {
 	if err := parseRegions(); err != nil {
 		log.Fatalf("-regions : %v", err)
 	}
-	go srv.listen("noms", *nsPort, srv.handleNameServer)
-	if !*nsOnly {
-		go srv.listen("maître", *masterPort, srv.handleMaster)
-		go srv.listen("jeu", *gamePort, srv.handleGame)
+	if *nsOnly {
+		go srv.listen("noms", *nsPort, srv.handleNameServer)
+	} else {
+		go srv.listen("pa-coop", *nsPort, srv.handleAny)
+		if *masterPort != 0 && *masterPort != *nsPort {
+			go srv.listen("maître", *masterPort, srv.handleMaster)
+		}
+		if *gamePort != 0 && *gamePort != *nsPort {
+			go srv.listen("jeu", *gamePort, srv.handleGame)
+		}
 	}
 	go srv.statsLoop()
 	<-stop
@@ -211,13 +241,14 @@ type server struct {
 }
 
 type client struct {
-	c      *photon.Conn
-	id     string
-	userID string
-	name   string
-	room   *room
-	actor  int32
-	props  photon.Hashtable
+	c       *photon.Conn
+	id      string
+	userID  string
+	name    string
+	room    *room
+	actor   int32
+	props   photon.Hashtable
+	pending *photon.Message // premier message déjà lu (port unique)
 }
 
 type room struct {
@@ -239,6 +270,9 @@ func (s *server) listen(role string, port int, h func(*client)) {
 		log.Fatalf("%s : %v", role, err)
 	}
 	log.Printf("serveur %s à l'écoute sur :%d", role, port)
+	if role == "pa-coop" {
+		log.Printf("pa-coop ready on port %d (max %d players per game)", port, *maxPlayers)
+	}
 	for {
 		nc, err := ln.Accept()
 		if err != nil {
@@ -261,6 +295,10 @@ func (s *server) listen(role string, port int, h func(*client)) {
 
 // handshake gère Init et l'échange de clés ; renvoie le premier message applicatif.
 func (s *server) next(cl *client) (*photon.Message, error) {
+	if m := cl.pending; m != nil {
+		cl.pending = nil
+		return m, nil
+	}
 	for {
 		m, err := cl.c.Read()
 		if err != nil {
@@ -308,10 +346,53 @@ func strArray(v ...string) photon.Array {
 	return a
 }
 
-func token() string {
+// token : jeton remis au client ; son préfixe indique le rôle de sa prochaine connexion (port unique).
+func token(next string) string {
 	b := make([]byte, 24)
 	rand.Read(b)
-	return hex.EncodeToString(b)
+	return next + "." + hex.EncodeToString(b)
+}
+
+func portOr(p int) int {
+	if p != 0 {
+		return p
+	}
+	return *nsPort
+}
+
+// handleAny : port unique. Le premier message dit qui se connecte : le jeu commence par le serveur de noms
+// (GetRegions, ou Authenticate avec l'AppId), puis présente au maître puis au serveur de jeu le jeton reçu.
+func (s *server) handleAny(cl *client) {
+	m, err := s.next(cl)
+	if err != nil {
+		logEnd("serveur", cl, err)
+		return
+	}
+	cl.pending = m
+	role := "jeu"
+	if m.Code == opGetRegions {
+		role = "noms"
+	} else if m.Code == opAuthenticate || m.Code == 231 {
+		_, hasApp := m.Params.Get(224)
+		tok, _ := m.Params.Get(pSecret)
+		ts, _ := tok.(string)
+		switch {
+		case hasApp && ts == "":
+			role = "noms"
+		case strings.HasPrefix(ts, "m."):
+			role = "maître"
+		}
+	} else if m.Code == opJoinLobby {
+		role = "maître"
+	}
+	switch role {
+	case "noms":
+		s.handleNameServer(cl)
+	case "maître":
+		s.handleMaster(cl)
+	default:
+		s.handleGame(cl)
+	}
 }
 
 func logEnd(role string, cl *client, err error) {
@@ -335,7 +416,7 @@ func (s *server) handleNameServer(cl *client) {
 		if *verbose {
 			log.Printf("[noms %s] op %d %v (chiffré=%v)", cl.id, m.Code, m.Params, m.Encrypted)
 		}
-		master := fmt.Sprintf("%s:%d", pubHost(), *masterPort)
+		master := fmt.Sprintf("%s:%d", pubHost(), portOr(*masterPort))
 		codes, addrs := strArray(*region), strArray(master)
 		if len(regions) > 0 {
 			codes, addrs = photon.Array{T: 's'}, photon.Array{T: 's'}
@@ -360,7 +441,7 @@ func (s *server) handleNameServer(cl *client) {
 				log.Printf("[noms] serveur choisi : %s", master)
 			}
 			uid := fmt.Sprintf("u%d", s.nextUID.Add(1))
-			err = reply(cl, m, 0, photon.Params{{pAddress, master}, {pUserID, uid}, {pSecret, token()}})
+			err = reply(cl, m, 0, photon.Params{{pAddress, master}, {pUserID, uid}, {pSecret, token("m")}})
 		default:
 			log.Printf("[noms %s] opération %d inconnue %v", cl.id, m.Code, m.Params)
 			err = reply(cl, m, -2, nil)
@@ -490,7 +571,7 @@ func (s *server) handleMaster(cl *client) {
 		delete(s.lobby, cl)
 		s.mu.Unlock()
 	}()
-	gameAddr := fmt.Sprintf("%s:%d", pubHost(), *gamePort)
+	gameAddr := fmt.Sprintf("%s:%d", pubHost(), portOr(*gamePort))
 	for {
 		m, err := s.next(cl)
 		if err != nil {
@@ -503,7 +584,7 @@ func (s *server) handleMaster(cl *client) {
 		switch m.Code {
 		case opAuthenticate:
 			cl.userID = fmt.Sprintf("u%d", s.nextUID.Add(1))
-			err = reply(cl, m, 0, photon.Params{{pUserID, cl.userID}, {pSecret, token()}})
+			err = reply(cl, m, 0, photon.Params{{pUserID, cl.userID}, {pSecret, token("g")}})
 			if err == nil {
 				err = cl.c.Write(s.appStats(), false)
 			}
@@ -524,7 +605,7 @@ func (s *server) handleMaster(cl *client) {
 			name, _ := m.Params.Get(pRoomName)
 			n, _ := name.(string)
 			if n == "" {
-				n = token()[:12]
+				n = token("r")[2:14]
 			}
 			s.mu.Lock()
 			if r, ok := s.rooms[n]; ok && len(r.actors) > 0 {
@@ -539,7 +620,7 @@ func (s *server) handleMaster(cl *client) {
 			s.rooms[n] = r
 			s.mu.Unlock()
 			log.Printf("partie « %s » créée par %s", n, cl.id)
-			err = reply(cl, m, 0, photon.Params{{pAddress, gameAddr}, {pSecret, token()}, {pRoomName, n}})
+			err = reply(cl, m, 0, photon.Params{{pAddress, gameAddr}, {pSecret, token("g")}, {pRoomName, n}})
 		case opJoinGame:
 			name, _ := m.Params.Get(pRoomName)
 			n, _ := name.(string)
@@ -557,7 +638,7 @@ func (s *server) handleMaster(cl *client) {
 				err = reply(cl, m, rcGameFull, nil)
 				break
 			}
-			err = reply(cl, m, 0, photon.Params{{pAddress, gameAddr}, {pSecret, token()}, {pRoomName, n}})
+			err = reply(cl, m, 0, photon.Params{{pAddress, gameAddr}, {pSecret, token("g")}, {pRoomName, n}})
 		case opJoinRandom:
 			err = reply(cl, m, 32760, nil) // NoRandomMatchFound
 		default:

@@ -193,8 +193,8 @@ static void start_local_server(void) {
 		return;
 	}
 	int off = g_cfg.port_offset;
-	snprintf(cmd, sizeof cmd, "\"%s\" -parent %lu -ns-port %d -master-port %d -game-port %d%s", exe,
-	         (unsigned long)GetCurrentProcessId(), 4533 + off, 4530 + off, 4531 + off, g_cfg.upnp ? " -upnp" : "");
+	snprintf(cmd, sizeof cmd, "\"%s\" -parent %lu -port %d%s", exe, (unsigned long)GetCurrentProcessId(), 4533 + off,
+	         g_cfg.upnp ? " -upnp" : "");
 	snprintf(logp, sizeof logp, "%s\\pacoop-server.log", g_dir);
 	SECURITY_ATTRIBUTES sa = {sizeof sa, NULL, TRUE};
 	HANDLE lf = CreateFileA(logp, GENERIC_WRITE, FILE_SHARE_READ, &sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);

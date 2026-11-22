@@ -1,0 +1,62 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": "https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/deploy/pterodactyl/egg-pa-coop.json"
+    },
+    "exported_at": "2026-11-22T15:00:00+00:00",
+    "name": "Prison Architect (pa-coop)",
+    "author": "fabienmillet@users.noreply.github.com",
+    "description": "Self-hosted co-op server for Prison Architect (pa-coop). Players install the pa-coop mod and point it to this server's address and port. One TCP port.",
+    "features": null,
+    "docker_images": {
+        "Debian": "ghcr.io/parkervcp/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": "./pacoop-server -port {{SERVER_PORT}} -max-players {{MAX_PLAYERS}} -public \"{{PUBLIC_ADDRESS}}\"",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"pa-coop ready on port\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\n# pa-coop : télécharge le serveur depuis les releases GitHub\nset -e\ncd /mnt/server\nREPO=fabienmillet/prison-architect-server\nif [ -z \"$VERSION\" ] || [ \"$VERSION\" = \"latest\" ]; then\n  URL=https://github.com/$REPO/releases/latest/download/pacoop-server-linux-amd64\nelse\n  URL=https://github.com/$REPO/releases/download/$VERSION/pacoop-server-linux-amd64\nfi\necho \"Téléchargement de $URL\"\ncurl -fsSL -o pacoop-server \"$URL\"\nchmod +x pacoop-server\necho \"pa-coop installé\"",
+            "container": "ghcr.io/parkervcp/installers:debian",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Max players",
+            "description": "Maximum number of players per game (the game itself asks for 4).",
+            "env_variable": "MAX_PLAYERS",
+            "default_value": "16",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|between:2,64",
+            "field_type": "text"
+        },
+        {
+            "name": "Public address",
+            "description": "Optional. Only needed for players WITHOUT the pa-coop mod (hosts-file redirect): the server's public IP or hostname. Leave empty with the mod.",
+            "env_variable": "PUBLIC_ADDRESS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:128",
+            "field_type": "text"
+        },
+        {
+            "name": "Version",
+            "description": "pa-coop release to install (\"latest\" or a tag such as v0.1.0). Reinstall the server to update.",
+            "env_variable": "VERSION",
+            "default_value": "latest",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        }
+    ]
+}

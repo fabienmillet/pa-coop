@@ -13,7 +13,7 @@ Installation
    - pour choisir dans le jeu : servers=Copains=ADRESSE, Local=local  (menu « Region »)
 4. Lancez le jeu, puis « Go Online » (héberger) ou « Join Online Game » (rejoindre).
 
-Jouer par Internet (hôte) : ports TCP 4530, 4531 et 4533 à rendre joignables (UPnP automatique,
+Jouer par Internet (hôte) : port TCP 4533 à rendre joignable (UPnP automatique,
 redirection sur la box, ou VPN entre amis).
 
 Serveur dédié : ./pacoop-server  (options : ./pacoop-server -h)

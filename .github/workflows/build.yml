@@ -1,0 +1,86 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Install compilers
+        run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-x86-64 zip
+
+      - name: Build packages
+        run: ./package.sh
+
+      - name: Check the Linux mod runs on old Steam runtimes
+        run: |
+          # Steam's runtime ships glibc 2.28: the mod must not need newer symbols.
+          bad=$(objdump -T dist/linux/pacoop.so | grep -oE 'GLIBC_2\.(29|[3-9][0-9])' | sort -u || true)
+          if [ -n "$bad" ]; then echo "pacoop.so needs $bad"; exit 1; fi
+
+      - name: Extra server builds
+        working-directory: server
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath -ldflags "-s -w" -o ../dist/pacoop-server-linux-arm64 ./cmd/pacoop-server
+          cp ../dist/windows/pacoop-server.exe ../dist/pacoop-server-windows-amd64.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pa-coop
+          path: |
+            dist/pa-coop-windows.zip
+            dist/pa-coop-linux.tar.gz
+            dist/pacoop-server-*
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --title "pa-coop $GITHUB_REF_NAME" --generate-notes \
+            dist/pa-coop-windows.zip dist/pa-coop-linux.tar.gz \
+            dist/pacoop-server-linux-amd64 dist/pacoop-server-linux-arm64 dist/pacoop-server-windows-amd64.exe \
+            install/install-pa-coop.bat
+
+  docker:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=sha
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

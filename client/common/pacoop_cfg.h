@@ -19,7 +19,7 @@
 
 struct pacoop_cfg {
 	char host[256]; // hôte vers lequel rediriger ("" = pas de redirection)
-	int port_offset; // décalage appliqué aux ports 4530/4531/4533
+	int port_offset; // port du serveur - 4533
 	int local;      // 1 = lancer le serveur local
 	int upnp;
 	int test;       // 1 = déclencheur de test de la resynchronisation (fichier pacoop-resync-test)
@@ -55,7 +55,7 @@ static void pacoop_parse_list(struct pacoop_cfg *c) {
 			int p = pacoop_atoi(colon + 1);
 			if (p > 3 && p < 65536) nsport = p;
 		}
-		c->list_master_port[c->nlist] = nsport - 3;
+		c->list_master_port[c->nlist] = nsport; // serveur pa-coop à port unique
 		if (strcasecmp(host, "local") == 0) {
 			snprintf(host, sizeof host, "127.0.0.1");
 			c->list_has_local = 1;
@@ -175,7 +175,6 @@ static int pacoop_is_photon_host(const char *n) {
 	return 0;
 }
 
-static int pacoop_is_photon_port(int p) { return p == 4530 || p == 4531 || p == 4533; }
 
 // Hôte à utiliser pour un nom à rediriger.
 static const char *pacoop_target(struct pacoop_cfg *c, const char *node) {
@@ -186,6 +185,7 @@ static const char *pacoop_target(struct pacoop_cfg *c, const char *node) {
 // Nouveau port de destination (0 = inchangé).
 static int pacoop_remap_port(struct pacoop_cfg *c, int p, int is_loopback) {
 	if (c->nlist) return (p == 4533 && is_loopback) ? PACOOP_SELECTOR_PORT : 0;
-	if (c->port_offset && pacoop_is_photon_port(p)) return p + c->port_offset;
+	// Le jeu ne choisit que le port du serveur de noms (4533) ; le serveur donne lui-même les autres adresses.
+	if (c->port_offset && p == PACOOP_NS_PORT) return p + c->port_offset;
 	return 0;
 }

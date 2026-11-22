@@ -3,13 +3,23 @@
 A replacement for Prison Architect's online co-op backend, plus a small client mod.
 
 - **Self-hosted**: your own server instead of the Photon cloud. Run it as a dedicated server, or let the game start it when you host.
-- **More players**: up to 16 per game by default (tested with 13); the official limit is 8.
+- **More players**: up to 16 per game by default (tested with 13); the game itself limits a game to 4.
 - **Sync that holds**: when the game detects a desync (`Object List Sync Error`), the mod reloads the host's prison in a couple of seconds instead of kicking the player.
 - **Easy to install**: copy three files next to the game. Steam and Epic builds play together.
 
 Works with the current version of the game (The_Jailhouse_1.02, r11056), Windows (Steam, Epic) and Linux (Steam).
 
 ## For players
+
+### Quick install
+
+- **Windows** (Steam or Epic): download [`install-pa-coop.bat`](https://github.com/fabienmillet/prison-architect-server/releases/latest/download/install-pa-coop.bat)
+  and double-click it. It finds the game, installs the mod and asks whether you host or join (and the address to join).
+  Run it again to switch mode or uninstall.
+- **Linux** (Steam, native version):
+  `curl -fsSL https://raw.githubusercontent.com/fabienmillet/prison-architect-server/master/install/install.sh | bash`
+
+### Manual install
 
 Download `pa-coop-windows.zip` (or `pa-coop-linux.tar.gz`) from the releases and copy its files into the game folder,
 next to `Prison Architect64.exe`:
@@ -39,24 +49,36 @@ servers=Friends=pa.example.org, Local=local
 Play as usual: **Go Online** to host, **Join Online Game** to join. Without a `server`/`servers` line the game uses
 the official servers. To uninstall, delete the three files.
 
-Playing over the Internet, the host must be reachable on TCP ports 4530, 4531 and 4533: UPnP (automatic), a port
+Playing over the Internet, the host must be reachable on TCP port 4533 (one port): UPnP (automatic), a port
 forward on the router, or a VPN between friends (Tailscale, ZeroTier, NetBird...).
 
 ## Dedicated server
 
+One TCP port (4533 by default). Players use `server=<address>` (or `server=<address>:<port>` with another port).
+
 ```sh
-./pacoop-server                       # ports 4530 (master), 4531 (game), 4533 (name server)
-./pacoop-server -max-players 16 -upnp # see ./pacoop-server -h
+./pacoop-server                          # port 4533
+./pacoop-server -port 14533 -max-players 24  # see ./pacoop-server -h
 ```
 
-Players use `server=<address of the server>`. Different ports: `-ns-port 14533 -master-port 14530 -game-port 14531`,
-and `server=<address>:14533`.
+**Docker** (amd64 and arm64):
+
+```sh
+docker run -d --name pa-coop -p 4533:4533 -e PACOOP_MAX_PLAYERS=16 ghcr.io/fabienmillet/prison-architect-server
+```
+
+Environment variables: `PACOOP_PORT`, `PACOOP_MAX_PLAYERS`, `PACOOP_PUBLIC`, `PACOOP_UPNP`, `PACOOP_VERBOSE`.
+
+**Pterodactyl / Pelican**: import the egg from [`deploy/pterodactyl`](deploy/pterodactyl/egg-pa-coop.json) or
+[`deploy/pelican`](deploy/pelican/egg-pa-coop.json) (Admin > Eggs > Import), create a server with one port
+allocation, start it. The install script downloads the latest release; set `VERSION` to pin one, reinstall to update.
 
 ## How it works
 
 Prison Architect's co-op runs on Photon Realtime: a name server, a master server (lobby) and a game server that
 relays messages, the host's game being the authority. `pacoop-server` (Go) speaks the same protocol (Protocol16 over
-TCP, Diffie-Hellman + AES for authentication) and plays the three roles.
+TCP, Diffie-Hellman + AES for authentication) and plays the three roles on a single port (the token handed to the
+game tells which role its next connection is for).
 
 The mod (a `dbghelp.dll` proxy on Windows, an `LD_PRELOAD` library on Linux):
 
@@ -73,7 +95,8 @@ The mod (a `dbghelp.dll` proxy on Windows, an `LD_PRELOAD` library on Linux):
 ./package.sh   # needs Go, gcc and mingw-w64 (x86_64-w64-mingw32-gcc); output in dist/
 ```
 
-- `server/`: `pacoop-server`, and `pacoop-bot` (fake players to load-test a game: `pacoop-bot -room NAME -n 12`)
+- `server/`: `pacoop-server`, and `pacoop-bot` (fake players to load-test a game: `pacoop-bot -server host:4533 -room NAME -n 12`)
+- `install/`: the player install scripts; `deploy/`: Pterodactyl and Pelican eggs; `Dockerfile`
 - `client/`: the Windows and Linux mods
 - `tools/p16dump.py`: decodes Photon traffic from a packet capture (needs tshark)
 
