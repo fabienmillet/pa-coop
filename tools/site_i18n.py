@@ -2,13 +2,13 @@
 """Builds the French pages (fr/index.html, fr/legal.html) from the English ones.
 
 Each English string is replaced by its French translation; the script fails if a string is missing,
-so a change to the English page can't silently leave untranslated text. Run after editing index.html or legal.html.
+so a change to the English page can't silently leave untranslated text. Run after editing site/index.html: python3 tools/site_i18n.py
 """
 import os
 import re
 import sys
 
-D = os.path.dirname(os.path.abspath(__file__))
+D = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "site")
 SITE = "https://pa-coop.zipname.fr"
 
 INDEX = [
